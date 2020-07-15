@@ -9,15 +9,9 @@ export default class PortfolioContainer extends Component {
         super();
         this.state = {
             pageTitle: 'Welcome to my portfolio',
-            data: [
-                { title: 'Some Enterprise', category: 'eCommerce', slug: 'Some-Enterprise' },
-                { title: 'Other Enterprise', category: 'Enterprise', slug: 'Other-Enterprise' },
-                { title: 'Some Project', category: 'Security', slug: 'some-project' }
-            ]
+            data: []
         };
         this.handleFilter = this.handleFilter.bind(this);
-        this.getPortfolioItems = this.getPortfolioItems.bind(this);
-
     }
 
     handleFilter(filter) {
@@ -30,7 +24,9 @@ export default class PortfolioContainer extends Component {
     getPortfolioItems() {
         axios.get('https://rdzcore.devcamp.space/portfolio/portfolio_items')
             .then(response => {
-                console.log(response);
+                this.setState({
+                    data: response.data.portfolio_items
+                })
             })
             .catch(error => {
                 console.log(error);
@@ -39,12 +35,13 @@ export default class PortfolioContainer extends Component {
     portfolioItems() {
 
         return this.state.data.map(item => {
-            return <PortfolioItem title={item.title} url={'google.com'} slug={item.slug} />
+            return <PortfolioItem key={item.id} title={item.name} url={item.url} slug={item.id} />
         })
     }
-    render() {
+    componentDidMount(){
         this.getPortfolioItems();
-        
+    }
+    render() {
         return (
             <div>
                 <h2>{this.state.pageTitle}</h2>
