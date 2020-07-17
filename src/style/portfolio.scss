@@ -38,3 +38,8 @@
         font-weight: 400;
     }  
 }
+
+.image-blur{
+    transition: 1s;
+    filter: brightness(10%);
+}
