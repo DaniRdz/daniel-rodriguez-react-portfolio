@@ -35,23 +35,19 @@ export default class PortfolioContainer extends Component {
     portfolioItems() {
 
         return this.state.data.map(item => {
-            return <PortfolioItem key={item.id} item ={item} />
+            return <PortfolioItem key={item.id} item={item} />
         })
     }
-    componentDidMount(){
+    componentDidMount() {
         this.getPortfolioItems();
     }
     render() {
         return (
-            <div>
-                <h2>{this.state.pageTitle}</h2>
-                <button onClick={() => this.handleFilter('eCommerce')}>eCommerce</button>
-                <button onClick={() => this.handleFilter('Enterprise')}>Enterprise</button>
-                <button onClick={() => this.handleFilter('Security')}>Security</button>
-                
-                <div className = 'portfolio-items-wrapper'>
-                    {this.portfolioItems()}
-                </div>
+            <div className='portfolio-items-wrapper'>
+                <button className = 'base-btn' onClick={() => this.handleFilter('eCommerce')}>eCommerce</button>
+                <button className = 'base-btn' onClick={() => this.handleFilter('Enterprise')}>Enterprise</button>
+                <button className = 'base-btn' onClick={() => this.handleFilter('Security')}>Security</button>
+                {this.portfolioItems()}
             </div>
         );
 
