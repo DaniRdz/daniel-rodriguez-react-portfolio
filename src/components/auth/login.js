@@ -1,52 +1,76 @@
 import React, { Component } from 'react';
+import axios from 'axios'
 
 export default class Login extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
 
         this.state = {
             email: "",
-            password: ""
+            password: "",
+            errorText: ""
         }
         this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChange(event){
+    handleChange(event) {
         this.setState({
-            [event.target.name] : event.target.value
+            [event.target.name]: event.target.value,
+            errorText : ""
         })
     }
 
-    handleSubmit(event){
-        console.log('handleSumit', event);
-        
+    handleSubmit(event) {
+        axios.post('https://api.devcamp.space/sessions',
+            {
+                client: {
+                    email: this.state.email,
+                    password: this.state.password
+                }
+            },
+            { withCredentials: true }
+        ).then(response => {
+            if(response.data.status === 'created'){
+                console.log('you can come in...');
+            }else{
+                this.setState({
+                    errorText : 'Wrong password or email'
+                })
+            }
+        }).catch(error => {
+            this.setState({
+                errorText: 'An error ocurred'
+            })
+        })
+        event.preventDefault();
+
     }
 
     render() {
         return (
             <div>
                 <h1>LOGIN TO ACCES YOUR DASHBOARD</h1>
-
-                <form onSubmit = {this.handleSubmit}>
-                    <input 
-                        type = 'email'
-                        name = 'email'
-                        placeholder = 'Your email'
-                        value = {this.state.email}
-                        onChange = {this.handleChange}
+                <div>{this.state.errorText}</div>
+                <form onSubmit={this.handleSubmit}>
+                    <input
+                        type='email'
+                        name='email'
+                        placeholder='Your email'
+                        value={this.state.email}
+                        onChange={this.handleChange}
                     />
 
-                    <input 
-                        type = 'password'
-                        name = 'password'
-                        placeholder = 'Your Password'
-                        value = {this.state.password}
-                        onChange = {this.handleChange}
+                    <input
+                        type='password'
+                        name='password'
+                        placeholder='Your Password'
+                        value={this.state.password}
+                        onChange={this.handleChange}
                     />
 
                     <div>
-                        <button type = 'submit'>Login</button>
+                        <button type='submit'>Login</button>
                     </div>
                 </form>
             </div>
