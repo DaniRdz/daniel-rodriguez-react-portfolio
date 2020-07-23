@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import axios from 'axios';
 
 import NavigationContainer from './navigation/navigation-container';
 import Home from './pages/home';
@@ -11,26 +12,54 @@ import PortfolioDetail from './portfolio/portfolio-detail';
 import NoMatch from './pages/no-match';
 
 export default class App extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
 
     this.state = {
-      loggedInStatus : 'NOT_LOGGED_IN'
+      loggedInStatus: 'NOT_LOGGED_IN'
     }
     this.handleSuccessfulLogin = this.handleSuccessfulLogin.bind(this);
     this.handleUnsuccessfulLogin = this.handleUnsuccessfulLogin.bind(this);
   }
 
-  handleSuccessfulLogin(){
+  handleSuccessfulLogin() {
     this.setState({
-      loggedInStatus : 'LOGGED_IN'
+      loggedInStatus: 'LOGGED_IN'
     })
   }
 
-  handleUnsuccessfulLogin(){
+  handleUnsuccessfulLogin() {
     this.setState({
-      loggedInStatus : 'NOT_LOGGED_IN'
+      loggedInStatus: 'NOT_LOGGED_IN'
     })
+  }
+
+  checkLoginStatus() {
+    return axios.get('https://api.devcamp.space/logged_in', {
+      withCredentials: true
+    }).then(response => {
+      const loggedIn = response.data.logged_in;
+      const loggedInStatus = this.state.loggedInStatus;
+
+      if (loggedIn && loggedInStatus === 'LOGGED_IN') {
+        return loggedIn
+      } else if (loggedIn && loggedInStatus === 'NOT_LOGGED_IN') {
+        this.setState({
+          loggedInStatus: 'LOGGED_IN'
+        });
+      } else if (!loggedIn && loggedInStatus === 'NOT_LOGGED_IN') {
+        this.setState({
+          loggedInStatus: 'NOT_LOGGED_IN'
+        });
+      }
+    })
+      .catch(error => {
+        console.log('error', error);
+      });
+  }
+
+  componentDidMount() {
+    this.checkLoginStatus();
   }
 
   render() {
@@ -46,9 +75,9 @@ export default class App extends Component {
               <Route path='/contact' component={Contact} />
               <Route path='/blog' component={Blog} />
 
-              <Route 
+              <Route
                 path='/auth'
-                render = {props =>(
+                render={props => (
                   <Auth
                     {...props}
                     handleSuccessfulLogin={this.handleSuccessfulLogin}
