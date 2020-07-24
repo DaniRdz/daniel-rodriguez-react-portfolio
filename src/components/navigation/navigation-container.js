@@ -1,4 +1,6 @@
 import React from 'react';
+import axios from 'axios';
+import {withRouter} from 'react-router'
 import { NavLink } from 'react-router-dom';
 
 const NavigationContainer = (props) => {
@@ -13,7 +15,19 @@ const NavigationContainer = (props) => {
 
     }
 
-
+    const handleSingOut = () => {
+        axios.delete("https://api.devcamp.space/logout", { withCredentials: true })
+            .then(response => {
+                if (response.status === 200) {
+                    props.history.push('/')
+                    props.handleSuccessfulLogout();
+                }
+                return response.data;
+            })
+            .catch(error => {
+                console.log('Error singout', error);
+            });
+    }
     return (
         <div className='nav-wrapper'>
             <div className='left-side'>
@@ -37,7 +51,7 @@ const NavigationContainer = (props) => {
                         Blog
                          </NavLink>
                 </div>
-                
+
                 {props.loggedInStatus === 'LOGGED_IN' ?
 
                     (dynamicLink('/portfolio-manager', 'portfolio manager'))
@@ -52,10 +66,13 @@ const NavigationContainer = (props) => {
             </div>
             <div className='right-side'>
                 DANIEL RODRIGUEZ
-                </div>
+                {props.loggedInStatus === 'LOGGED_IN' ?
+                    <a onClick={handleSingOut}>Sing Out</a>
+                    : null}
+            </div>
         </div>
     );
 
 };
 
-export default NavigationContainer;
+export default withRouter(NavigationContainer);

@@ -22,6 +22,8 @@ export default class App extends Component {
     }
     this.handleSuccessfulLogin = this.handleSuccessfulLogin.bind(this);
     this.handleUnsuccessfulLogin = this.handleUnsuccessfulLogin.bind(this);
+    this.handleSuccessfulLogout = this.handleSuccessfulLogout.bind(this);
+
   }
 
   handleSuccessfulLogin() {
@@ -31,6 +33,12 @@ export default class App extends Component {
   }
 
   handleUnsuccessfulLogin() {
+    this.setState({
+      loggedInStatus: 'NOT_LOGGED_IN'
+    })
+  }
+
+  handleSuccessfulLogout() {
     this.setState({
       loggedInStatus: 'NOT_LOGGED_IN'
     })
@@ -63,6 +71,7 @@ export default class App extends Component {
   componentDidMount() {
     this.checkLoginStatus();
   }
+
   authorizedPage() {
     return [<Route path='/blog-manager' component={BlogManager} />,
     <Route path='/portfolio-manager' component={PortfolioManager} />
@@ -74,7 +83,10 @@ export default class App extends Component {
       <div className='container'>
         <BrowserRouter>
           <div>
-            <NavigationContainer loggedInStatus={this.state.loggedInStatus} />
+            <NavigationContainer
+              loggedInStatus={this.state.loggedInStatus}
+              handleSuccessfulLogout={this.handleSuccessfulLogout}
+            />
             <h2>{this.state.loggedInStatus}</h2>
             <Switch>
               <Route exact path='/' component={Home} />
