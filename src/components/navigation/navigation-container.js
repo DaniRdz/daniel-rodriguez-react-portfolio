@@ -3,6 +3,16 @@ import { NavLink } from 'react-router-dom';
 
 const NavigationContainer = () => {
 
+    const dynamicLink = (route, linkText) => {
+        return (
+            <div className='nav-link-wrapper'>
+                <NavLink to={`${route}`} activeClassName='nav-link-active'>
+                    {`${linkText}`}
+                </NavLink>
+            </div>)
+
+    }
+
 
     return (
         <div className='nav-wrapper'>
@@ -27,6 +37,8 @@ const NavigationContainer = () => {
                         Blog
                          </NavLink>
                 </div>
+                {dynamicLink('/blog-manager', 'blog manager')}
+                {dynamicLink('/portfolio-manager', 'portfolio manager')}
                 {false ? <button>Add Blog</button> : null}
             </div>
             <div className='right-side'>
