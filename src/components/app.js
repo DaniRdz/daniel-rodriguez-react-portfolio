@@ -63,21 +63,25 @@ export default class App extends Component {
   componentDidMount() {
     this.checkLoginStatus();
   }
+  authorizedPage() {
+    return [<Route path='/blog-manager' component={BlogManager} />,
+    <Route path='/portfolio-manager' component={PortfolioManager} />
+    ];
+  }
 
   render() {
     return (
       <div className='container'>
         <BrowserRouter>
           <div>
-            <NavigationContainer />
+            <NavigationContainer loggedInStatus={this.state.loggedInStatus} />
             <h2>{this.state.loggedInStatus}</h2>
             <Switch>
               <Route exact path='/' component={Home} />
               <Route path='/about-me' component={About} />
               <Route path='/contact' component={Contact} />
               <Route path='/blog' component={Blog} />
-              <Route path='/blog-manager' component={BlogManager} />
-              <Route path='/portfolio-manager' component={PortfolioManager} />
+              {this.state.loggedInStatus === 'LOGGED_IN' ? this.authorizedPage() : null}
 
               <Route
                 path='/auth'

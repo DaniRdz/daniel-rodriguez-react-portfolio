@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const NavigationContainer = () => {
+const NavigationContainer = (props) => {
 
     const dynamicLink = (route, linkText) => {
         return (
@@ -37,9 +37,18 @@ const NavigationContainer = () => {
                         Blog
                          </NavLink>
                 </div>
-                {dynamicLink('/blog-manager', 'blog manager')}
-                {dynamicLink('/portfolio-manager', 'portfolio manager')}
-                {false ? <button>Add Blog</button> : null}
+                
+                {props.loggedInStatus === 'LOGGED_IN' ?
+
+                    (dynamicLink('/portfolio-manager', 'portfolio manager'))
+                    : null
+                }
+
+                {props.loggedInStatus === 'LOGGED_IN' ?
+
+                    (dynamicLink('/blog-manager', 'blog manager'))
+                    : null
+                }
             </div>
             <div className='right-side'>
                 DANIEL RODRIGUEZ
