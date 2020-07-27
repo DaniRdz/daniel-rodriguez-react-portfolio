@@ -5,7 +5,7 @@ const PortfolioSidebarList = props => {
         return(
             <div className = 'portfolio-item-thumb'>
                 <div className = 'portfolio-thumb-img'>
-                    <img src ={portfolioItem.banner_image_url}/>
+                    <img src ={portfolioItem.thumb_image_url}/>
                 </div>
                 <h1 className = 'title'>{portfolioItem.name}</h1>
                 <h2>{portfolioItem.id}</h2>
