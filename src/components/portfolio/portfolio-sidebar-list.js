@@ -1,20 +1,22 @@
 import React from 'react';
 
-export default function (props) {
+const PortfolioSidebarList = props => {
     const portfolioList = props.data.map(portfolioItem => {
         return(
-            <div>
-                <div>
+            <div className = 'portfolio-item-thumb'>
+                <div className = 'portfolio-thumb-img'>
                     <img src ={portfolioItem.banner_image_url}/>
                 </div>
-                <h1>{portfolioItem.name}</h1>
+                <h1 className = 'title'>{portfolioItem.name}</h1>
                 <h2>{portfolioItem.id}</h2>
             </div>
-        )
-    })
+        );
+    });
     return (
-        <div>
+        <div className = 'portfolio-sidebar-list-wrapper'>
             {portfolioList}
         </div>
     );
 }
+
+export default PortfolioSidebarList;

@@ -8,14 +8,14 @@ export default class PortfolioManager extends Component {
         super();
 
         this.state = {
-            data: []
+            portfolioItems: []
         }
     }
     getPortfolioItems(){
         axios.get('https://rdzcore.devcamp.space/portfolio/portfolio_items',{withCredentials: true})
         .then(response =>{
             this.setState({
-                data: [...response.data.portfolio_items]
+                portfolioItems: [...response.data.portfolio_items]
             })
         })
         .catch(error => {
@@ -32,7 +32,7 @@ export default class PortfolioManager extends Component {
                     <h1>Portfolio form...</h1>
                 </div>
                 <div className='right-column'>
-                    <PortfolioSidebarList  data = {this.state.data}/>
+                    <PortfolioSidebarList  data = {this.state.portfolioItems}/>
                 </div>
             </div>
         );
