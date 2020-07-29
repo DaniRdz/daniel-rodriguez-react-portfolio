@@ -9,7 +9,7 @@ export default class PortfolioForm extends Component {
             name: "",
             description: "",
             url: "",
-            category: "",
+            category: "eCommerce",
             position: "",
             thumb_image: "",
             banner_image: "",
@@ -38,7 +38,7 @@ export default class PortfolioForm extends Component {
     handleSubmit(event) {
         axios.post('https://rdzcore.devcamp.space/portfolio/portfolio_items', this.buildForm(), { withCredentials: true })
             .then(response => {
-                console.log('response', response);
+                this.props.handleSuccesfullFormSubmission(response.data.portfolio_item)
             })
             .catch(error => {
                 console.log('handleSubmit error', error);

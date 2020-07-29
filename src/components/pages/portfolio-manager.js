@@ -15,16 +15,16 @@ export default class PortfolioManager extends Component {
         this.handleFormSbmissionError = this.handleFormSbmissionError.bind(this);
     }
     handleSuccesfullFormSubmission(portfolioItem) {
-        //TODO
-        //Update portfolioItems state
-        //and add portfolioItem to the list
-
+        
+        this.setState({
+            portfolioItems : [portfolioItem].concat(this.state.portfolioItems)
+        });
     }
     handleFormSbmissionError(error) {
         console.log('handleFormSbmissionError error', error);
     }
     getPortfolioItems() {
-        axios.get('https://rdzcore.devcamp.space/portfolio/portfolio_items', { withCredentials: true })
+        axios.get('https://rdzcore.devcamp.space/portfolio/portfolio_items?order_by=created_at&direction=desc', { withCredentials: true })
             .then(response => {
                 this.setState({
                     portfolioItems: [...response.data.portfolio_items]
