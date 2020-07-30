@@ -1,17 +1,14 @@
 .one-column{
-    display: grid;
+    @include base-grid();
     grid-template-columns: 1fr;
-    grid-gap: 21px;
 }
 
 .two-columns{
-    display: grid;
+    @include base-grid();
     grid-template-columns: 1fr 1fr;
-    grid-gap: 21px;
 }
 
 .three-columns{
-    display: grid;
+    @include base-grid();
     grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 21px;
 }
