@@ -14,18 +14,21 @@
                 font-size: 1.5em;
                 color: $offwhite;
             }
-            
-            .delete-icon{
-                cursor: pointer;
-                font-size: 1.5em;
-                color: $offwhite;
-                transition: 0.5s ease-in-out;
+            .actions{
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-gap: 15px;
+                .action-icon{
+                    cursor: pointer;
+                    font-size: 1.5em;
+                    color: $offwhite;
+                    transition: 0.5s ease-in-out;
 
-                &:hover{
-                    color: $warning;
+                    &:hover{
+                        color: $warning;
+                    }
                 }
-            }
-            
+            }  
         }
     }
 }
