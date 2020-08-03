@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import DropzoneComponent from 'react-dropzone-component';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import '../../../node_modules/react-dropzone-component/styles/filepicker.css'
 import '../../../node_modules/dropzone/dist/min/dropzone.min.css'
@@ -29,10 +30,14 @@ export default class PortfolioForm extends Component {
         this.handleThumbDrop = this.handleThumbDrop.bind(this);
         this.handleBannerDrop = this.handleBannerDrop.bind(this);
         this.handleLogoDrop = this.handleLogoDrop.bind(this);
+        this.deleteImage = this.deleteImage.bind(this);
 
         this.thumbRef = React.createRef();
         this.bannerRef = React.createRef();
         this.logoRef = React.createRef();
+    }
+    deleteImage(imageType) {
+        console.log('delete image', imageType);
     }
     componentDidUpdate() {
         if (Object.keys(this.props.portfolioToEdit).length > 0) {
@@ -57,6 +62,9 @@ export default class PortfolioForm extends Component {
                 url: url || "",
                 category: category || "eCommerce",
                 position: position || "",
+                thumb_image: thumb_image_url || "",
+                banner_image: banner_image_url || "",
+                logo: logo_url || "",
                 editMode: true,
                 apiUrl: `https://rdzcore.devcamp.space/portfolio/portfolio_items/${id}`,
                 apiAction: "patch"
@@ -210,35 +218,69 @@ export default class PortfolioForm extends Component {
                 </div>
 
                 <div className='image-uploaders three-columns'>
-                    <DropzoneComponent
-                        ref={this.thumbRef}
-                        config={this.componentConfig()}
-                        djsConfig={this.djsConfig()}
-                        eventHandlers={this.handleThumbDrop()}
-                    >
-                        <div className='dz-message'>Thumbnail</div>
+                    {this.state.thumb_image && this.state.editMode ?
+                        <div className='portfolio-manager-image-wrapper'>
+                            <img src={this.state.thumb_image} />
 
-                    </DropzoneComponent>
+                            <div className='image-removal-link'>
+                                <a onClick={() => this.deleteImage('thumb_image')}>
+                                    <FontAwesomeIcon icon='eraser' />
+                                </a>
+                            </div>
+                        </div> :
+                        <DropzoneComponent
+                            ref={this.thumbRef}
+                            config={this.componentConfig()}
+                            djsConfig={this.djsConfig()}
+                            eventHandlers={this.handleThumbDrop()}
+                        >
+                            <div className='dz-message'>Thumbnail</div>
 
-                    <DropzoneComponent
-                        ref={this.bannerRef}
-                        config={this.componentConfig()}
-                        djsConfig={this.djsConfig()}
-                        eventHandlers={this.handleBannerDrop()}
-                    >
-                        <div className='dz-message'>Banner</div>
+                        </DropzoneComponent>
+                    }
 
-                    </DropzoneComponent>
+                    {this.state.banner_image && this.state.editMode ?
+                        <div className='portfolio-manager-image-wrapper'>
+                            <img src={this.state.banner_image} />
 
-                    <DropzoneComponent
-                        ref={this.logoRef}
-                        config={this.componentConfig()}
-                        djsConfig={this.djsConfig()}
-                        eventHandlers={this.handleLogoDrop()}
-                    >
-                        <div className='dz-message'>Logo</div>
+                            <div className='image-removal-link'>
+                                <a onClick={() => this.deleteImage('banner_image')}>
+                                    <FontAwesomeIcon icon='eraser' />
+                                </a>
+                            </div>
+                        </div> :
+                        <DropzoneComponent
+                            ref={this.bannerRef}
+                            config={this.componentConfig()}
+                            djsConfig={this.djsConfig()}
+                            eventHandlers={this.handleBannerDrop()}
+                        >
+                            <div className='dz-message'>Banner</div>
 
-                    </DropzoneComponent>
+                        </DropzoneComponent>
+                    }
+
+                    {this.state.logo && this.state.editMode ?
+                        <div className='portfolio-manager-image-wrapper'>
+                            <img src={this.state.logo} />
+
+                            <div className='image-removal-link'>
+                                <a onClick={() => this.deleteImage('logo')}>
+                                    <FontAwesomeIcon icon='eraser' />
+                                </a>
+                            </div>
+                        </div> :
+                        <DropzoneComponent
+                            ref={this.logoRef}
+                            config={this.componentConfig()}
+                            djsConfig={this.djsConfig()}
+                            eventHandlers={this.handleLogoDrop()}
+                        >
+                            <div className='dz-message'>Logo</div>
+
+                        </DropzoneComponent>
+                    }
+
                 </div>
 
                 <div>
