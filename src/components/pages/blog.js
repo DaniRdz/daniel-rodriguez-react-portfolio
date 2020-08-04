@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-import BlogItem from '../blog.js/blog-item'
+import BlogItem from '../blog/blog-item'
 
 export default class Blog extends Component {
     constructor() {
