@@ -58,12 +58,7 @@ const NavigationContainer = (props) => {
                     (dynamicLink('/portfolio-manager', 'portfolio manager'))
                     : null
                 }
-
-                {props.loggedInStatus === 'LOGGED_IN' ?
-
-                    (dynamicLink('/blog-manager', 'blog manager'))
-                    : null
-                }
+                
             </div>
             <div className='right-side'>
                 DANIEL RODRIGUEZ

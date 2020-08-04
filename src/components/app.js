@@ -9,7 +9,6 @@ import NavigationContainer from './navigation/navigation-container';
 import Home from './pages/home';
 import About from './pages/about';
 import Blog from './pages/blog';
-import BlogManager from './pages/blog-manager';
 import Contact from './pages/contact';
 import Auth from './pages/auth';
 import PortfolioDetail from './portfolio/portfolio-detail';
@@ -78,8 +77,7 @@ export default class App extends Component {
   }
 
   authorizedPage() {
-    return [<Route key='blog-manager' path='/blog-manager' component={BlogManager} />,
-    <Route key='portfolio-manager' path='/portfolio-manager' component={PortfolioManager} />
+    return [<Route key='portfolio-manager' path='/portfolio-manager' component={PortfolioManager} />
     ];
   }
 
