@@ -14,7 +14,7 @@ export default function BlogItem(props) {
     return (
         <div>
             <Link to={`/b/${id}`} >
-            <h1>{title}</h1>
+                <h1>{title}</h1>
             </Link >
             <div>{content}</div>
         </div>
