@@ -28,7 +28,7 @@ export default class Blog extends Component {
                 return;
             }
 
-            if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
+            if (Math.round(window.innerHeight + document.documentElement.scrollTop) === document.documentElement.offsetHeight) {
                 this.getBlogItems();
             }
         };
