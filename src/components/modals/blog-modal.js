@@ -27,8 +27,9 @@ export default class BlogModal extends Component {
     }
 
     handleSuccessfulSubmit(blog){
-        console.log(blog);
+        this.props.handleSuccessfullNewSubmission(blog);
     }
+    
     render() {
         return (
             <ReactModal
