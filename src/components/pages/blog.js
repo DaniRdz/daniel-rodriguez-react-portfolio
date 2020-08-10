@@ -26,10 +26,10 @@ export default class Blog extends Component {
         this.handleSuccessfullNewSubmission = this.handleSuccessfullNewSubmission.bind(this);
     }
 
-    handleSuccessfullNewSubmission(blog){
+    handleSuccessfullNewSubmission(blog) {
         this.setState({
             blogModalIsOpen: false,
-            blogsItems : [blog].concat(this.state.blogsItems)
+            blogsItems: [blog].concat(this.state.blogsItems)
         })
     }
 
@@ -93,11 +93,13 @@ export default class Blog extends Component {
                     handleModalClose={this.handleModalClose}
                     modalIsOpen={this.state.blogModalIsOpen}
                 />
-                <div className='new-blog-link'>
-                    <a onClick={this.handleNewBlogClick}>
-                        <FontAwesomeIcon icon='pen-fancy' />
-                    </a>
-                </div>
+
+                {this.props.loggedInStatus === 'LOGGED_IN' ?
+                    <div className='new-blog-link'>
+                        <a onClick={this.handleNewBlogClick}>
+                            <FontAwesomeIcon icon='pen-fancy' />
+                        </a>
+                    </div> : null}
                 <div className='content-container'>
                     {blogRecords}
                 </div>
