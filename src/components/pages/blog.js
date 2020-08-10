@@ -94,7 +94,9 @@ export default class Blog extends Component {
                     modalIsOpen={this.state.blogModalIsOpen}
                 />
                 <div className='new-blog-link'>
-                    <a onClick={this.handleNewBlogClick}>open modal!!!</a>
+                    <a onClick={this.handleNewBlogClick}>
+                        <FontAwesomeIcon icon='pen-fancy' />
+                    </a>
                 </div>
                 <div className='content-container'>
                     {blogRecords}
