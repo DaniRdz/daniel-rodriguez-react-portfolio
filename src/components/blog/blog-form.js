@@ -18,7 +18,7 @@ export default class BlogForm extends Component {
         this.handleRichTextEditorChange = this.handleRichTextEditorChange.bind(this);
     }
 
-    handleRichTextEditorChange(content){
+    handleRichTextEditorChange(content) {
         this.setState({ content });
     }
 
@@ -36,12 +36,14 @@ export default class BlogForm extends Component {
     handleSubmit(event) {
         axios.post('https://rdzcore.devcamp.space/portfolio/portfolio_blogs', this.buildForm(), { withCredentials: true })
             .then(response => {
-                this.props.handleSuccessfulSubmit(response.data.portfolio_blog);
 
                 this.setState({
                     title: "",
-                    blog_status: ""
+                    blog_status: "",
+                    content: ""
                 })
+
+                this.props.handleSuccessfulSubmit(response.data.portfolio_blog);
             })
             .catch(error => {
                 console.log(' handleSubmit blog error', error);
@@ -76,8 +78,8 @@ export default class BlogForm extends Component {
                 </div>
 
                 <div className='one-column'>
-                    <RichTextEditor 
-                        handleRichTextEditorChange = {this.handleRichTextEditorChange}
+                    <RichTextEditor
+                        handleRichTextEditorChange={this.handleRichTextEditorChange}
                     />
                 </div>
 
