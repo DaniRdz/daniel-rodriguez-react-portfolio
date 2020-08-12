@@ -226,7 +226,7 @@ export default class PortfolioForm extends Component {
                     />
                 </div>
 
-                <div className='image-uploaders three-columns'>
+                <div className='image-uploaders'>
                     {this.state.thumb_image_url && this.state.editMode ?
                         <div className='portfolio-manager-image-wrapper'>
                             <img src={this.state.thumb_image_url} />
