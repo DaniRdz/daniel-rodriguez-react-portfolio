@@ -9,7 +9,7 @@ export default class BlogForm extends Component {
         super(props);
 
         this.state = {
-            id:"",
+            id: "",
             title: "",
             blog_status: "",
             content: "",
@@ -27,7 +27,7 @@ export default class BlogForm extends Component {
 
     }
     componentDidMount() {
-        if(this.props.editMode) {
+        if (this.props.editMode) {
             this.setState({
                 id: this.props.blogToEdit.id,
                 title: this.props.blogToEdit.title,
@@ -126,21 +126,32 @@ export default class BlogForm extends Component {
                 <div className='one-column'>
                     <RichTextEditor
                         handleRichTextEditorChange={this.handleRichTextEditorChange}
-                        editMode = {this.props.editMode}
-                        contentToEdit = {this.props.editMode && this.props.blogToEdit.content ? this.props.blogToEdit.content : null}
+                        editMode={this.props.editMode}
+                        contentToEdit={this.props.editMode && this.props.blogToEdit.content ? this.props.blogToEdit.content : null}
                     />
                 </div>
 
                 <div className='image-uploaders'>
-                    <DropzoneComponent
-                        ref={this.featuredImageRef}
-                        config={this.componentConfig()}
-                        djsConfig={this.djsConfig()}
-                        eventHandlers={this.handleFeaturedImageDrop()}
-                    >
-                        <div className='dz-message'>Featured Image</div>
+                    {this.props.editMode && this.props.blogToEdit.featured_image_url ?
+                        <div className='portfolio-manager-image-wrapper'>
+                            <img src={this.props.blogToEdit.featured_image_url} />
 
-                    </DropzoneComponent>
+                            <div className='image-removal-link'>
+                                <a>
+                                    Remove File
+                                </a>
+                            </div>
+                        </div> :
+                        <DropzoneComponent
+                            ref={this.featuredImageRef}
+                            config={this.componentConfig()}
+                            djsConfig={this.djsConfig()}
+                            eventHandlers={this.handleFeaturedImageDrop()}
+                        >
+                            <div className='dz-message'>Featured Image</div>
+
+                        </DropzoneComponent>
+                    }
                 </div>
 
                 <button className='btn'>Save</button>
