@@ -12,5 +12,29 @@
     .image-uploaders{
         @include base-grid();
         grid-template-columns: 200px;
+
+        .blog-edit-image-wrapper{
+            img{
+                width: 100%;
+                height: 120px;
+                object-fit: cover;
+                border-radius: 5px;
+            }
+
+            .image-removal-link{
+                display: flex;
+
+                a{
+                    cursor: pointer;
+                    color: $teal;
+                    font-size: 1em;
+                    transition: 0.5s ease-in-out;
+
+                    &:hover{
+                        color: $warning;
+                    }
+                }
+            }
+        }
     }
 }   
