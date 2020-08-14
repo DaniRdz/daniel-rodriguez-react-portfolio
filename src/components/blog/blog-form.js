@@ -13,7 +13,9 @@ export default class BlogForm extends Component {
             title: "",
             blog_status: "",
             content: "",
-            featured_image: ""
+            featured_image: "",
+            apiUrl: "https://rdzcore.devcamp.space/portfolio/portfolio_blogs",
+            apiAction: "post"
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -43,7 +45,10 @@ export default class BlogForm extends Component {
             this.setState({
                 id: this.props.blogToEdit.id,
                 title: this.props.blogToEdit.title,
-                blog_status: this.props.blogToEdit.blog_status
+                blog_status: this.props.blogToEdit.blog_status,
+                content: this.props.blogToEdit.content,
+                apiUrl: `https://rdzcore.devcamp.space/portfolio/portfolio_blogs/${this.props.blogToEdit.id}`,
+                apiAction: "patch"
             })
         }
     }
@@ -87,7 +92,12 @@ export default class BlogForm extends Component {
     }
 
     handleSubmit(event) {
-        axios.post('https://rdzcore.devcamp.space/portfolio/portfolio_blogs', this.buildForm(), { withCredentials: true })
+        axios({
+            method: this.state.apiAction,
+            url: this.state.apiUrl,
+            data: this.buildForm(),
+            withCredentials: true
+        })
             .then(response => {
 
                 if (this.state.featured_image) {
@@ -101,7 +111,11 @@ export default class BlogForm extends Component {
                     featured_image: ""
                 })
 
-                this.props.handleSuccessfulSubmit(response.data.portfolio_blog);
+                if (this.props.editMode) {
+                    this.props.handleUpdateFormSubmission(response.data.portfolio_blog)
+                } else {
+                    this.props.handleSuccessfulSubmit(response.data.portfolio_blog);
+                }
             })
             .catch(error => {
                 console.log(' handleSubmit blog error', error);
