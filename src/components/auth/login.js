@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import axios from 'axios'
+import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 
 export default class Login extends Component {
     constructor(props) {
@@ -17,7 +19,7 @@ export default class Login extends Component {
     handleChange(event) {
         this.setState({
             [event.target.name]: event.target.value,
-            errorText : ""
+            errorText: ""
         })
     }
 
@@ -31,11 +33,11 @@ export default class Login extends Component {
             },
             { withCredentials: true }
         ).then(response => {
-            if(response.data.status === 'created'){
+            if (response.data.status === 'created') {
                 this.props.handleSuccessfulAuth();
-            }else{
+            } else {
                 this.setState({
-                    errorText : 'Wrong password or email'
+                    errorText: 'Wrong password or email'
                 })
                 this.props.handleUnsuccessfulAuth();
             }
@@ -54,26 +56,31 @@ export default class Login extends Component {
             <div>
                 <h1>LOGIN TO ACCES YOUR DASHBOARD</h1>
                 <div>{this.state.errorText}</div>
-                <form onSubmit={this.handleSubmit}>
-                    <input
-                        type='email'
-                        name='email'
-                        placeholder='Your email'
-                        value={this.state.email}
-                        onChange={this.handleChange}
-                    />
-
-                    <input
-                        type='password'
-                        name='password'
-                        placeholder='Your Password'
-                        value={this.state.password}
-                        onChange={this.handleChange}
-                    />
-
-                    <div>
-                        <button type='submit'>Login</button>
+                <form onSubmit={this.handleSubmit} className='auth-form-wrapper'>
+                    <div className='form-group'>
+                        <FontAwesomeIcon icon='envelope' />
+                        <input
+                            type='email'
+                            name='email'
+                            placeholder='Your email'
+                            value={this.state.email}
+                            onChange={this.handleChange}
+                        />
                     </div>
+
+                    <div className='form-group'>
+                        <FontAwesomeIcon icon='key' />
+                        <input
+                            type='password'
+                            name='password'
+                            placeholder='Your Password'
+                            value={this.state.password}
+                            onChange={this.handleChange}
+                        />
+                    </div>
+
+                    <button className='btn' type='submit'>Login</button>
+
                 </form>
             </div>
         );
